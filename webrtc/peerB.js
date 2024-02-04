@@ -6,10 +6,12 @@ remoteConnection.onicecandidate = (e) => {
 };
 
 remoteConnection.ondatachannel = (e) => {
-  const receiveChannel = e.channel;
-  receiveChannel.onmessage = (e) => console.log('From A: ' + e.data);
-  receiveChannel.onopen = (e) => console.log('OPEN!!!');
-  receiveChannel.onclose = (e) => console.log('CLOSE');
+  //channel is saved in the RemoteConnection Object
+  remoteConnection.receiveChannel = e.channel;
+  remoteConnection.receiveChannel.onmessage = (e) =>
+    console.log('From A: ' + e.data);
+  remoteConnection.receiveChannel.onopen = (e) => console.log('OPEN!!!');
+  remoteConnection.receiveChannel.onclose = (e) => console.log('CLOSE');
 };
 
 remoteConnection.setRemoteDescription(offer).then((a) => console.log('Done'));
