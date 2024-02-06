@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { DndContext, closestCorners } from '@dnd-kit/core';
 import Column from './components/Column';
+import { arrayMove } from '@dnd-kit/sortable';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -10,10 +11,22 @@ function App() {
     { id: 3, title: 'Learn how to center a div' },
   ]);
 
+  const getTaskPos = (id) => tasks.findIndex((task) => task.id == id);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id == over.id) return;
+
+    setTasks((tasks) => {
+      const orginalPos = getTaskPos(active.id);
+      const newPos = getTaskPos(over.id);
+      return arrayMove(tasks, orginalPos, newPos);
+    });
+  };
   return (
     <div className="App">
       <h1>MyTasks ✅</h1>
-      <DndContext collisionDetection={closestCorners}>
+      <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
         <Column tasks={tasks} />
       </DndContext>
     </div>

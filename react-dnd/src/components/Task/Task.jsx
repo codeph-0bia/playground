@@ -12,7 +12,13 @@ const Task = ({ id, title }) => {
     transform: CSS.Transform.toString(transform),
   };
   return (
-    <div ref={setNodeRef} {...attributes} {...listeners} className="task">
+    <div
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      className="task"
+      style={style}
+    >
       <input type="checkbox" className="checkbox" />
       {title}
     </div>
