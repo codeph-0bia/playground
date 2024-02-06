@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/core';
 import Column from './components/Column';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import Input from './components/Input/Input';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -19,6 +20,9 @@ function App() {
     { id: 3, title: 'Learn how to center a div' },
   ]);
 
+  const addTask = (title) => {
+    setTasks((tasks) => [{ id: tasks.length + 1, title: title }, ...tasks]);
+  };
   const getTaskPos = (id) => tasks.findIndex((task) => task.id == id);
 
   const handleDragEnd = (event) => {
@@ -47,6 +51,7 @@ function App() {
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
+        <Input onSubmit={addTask} />
         <Column tasks={tasks} />
       </DndContext>
     </div>
