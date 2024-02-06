@@ -9,7 +9,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import Column from './components/Column';
+import Column from './components/Column/Column';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import Input from './components/Input/Input';
 

@@ -4,7 +4,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import './Column.css';
-import Task from './Task/Task';
+import Task from '../Task/Task';
 
 const Column = ({ tasks }) => {
   return (

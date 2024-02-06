@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import './Input.css';
 
-export const Input = ({ onSubmit }) => {
+const Input = ({ onSubmit }) => {
   const [input, setInput] = useState('');
 
   const handleSubmit = () => {
@@ -28,3 +28,5 @@ export const Input = ({ onSubmit }) => {
     </div>
   );
 };
+
+export default Input;
