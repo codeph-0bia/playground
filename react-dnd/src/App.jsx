@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import './App.css';
-import { DndContext, closestCorners } from '@dnd-kit/core';
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  closestCorners,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import Column from './components/Column';
-import { arrayMove } from '@dnd-kit/sortable';
+import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -23,10 +31,22 @@ function App() {
       return arrayMove(tasks, orginalPos, newPos);
     });
   };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
   return (
     <div className="App">
       <h1>MyTasks ✅</h1>
-      <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+      <DndContext
+        collisionDetection={closestCorners}
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+      >
         <Column tasks={tasks} />
       </DndContext>
     </div>
